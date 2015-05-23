@@ -17,7 +17,6 @@ public class Main {
     private static final int ROOM_WIDTH = 5;
     private static final int ROOM_HEIGHT = 5;
 
-
     public static void main(String[] args) {
         JALSE jalse = JALSEBuilder.buildSingleThreadedJALSE();
 

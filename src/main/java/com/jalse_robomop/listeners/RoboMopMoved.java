@@ -14,8 +14,8 @@ public class RoboMopMoved implements AttributeListener<Point2D.Double> {
     }
 
     @Override
-    public void attributeChanged(final AttributeEvent<Point2D.Double> event) {
-        final Point2D.Double position = event.getValue();
+    public void attributeChanged(AttributeEvent<Point2D.Double> event) {
+        Point2D.Double position = event.getValue();
         System.out.println("RoboMop moved to - x: " + position.x + ", y: " + position.y);
 
         room.markPositionAsClean(position);

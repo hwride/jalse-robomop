@@ -20,7 +20,6 @@ public class MoveRoboMop implements Action<JALSE> {
             double angle = roboMop.getAngle();
 
             Room room = context.get("room");
-
             Point2D.Double newPosition = new Point2D.Double(
                     position.x + (MOVE_SPEED * Math.cos(angle)),
                     position.y + (MOVE_SPEED * Math.sin(angle))
