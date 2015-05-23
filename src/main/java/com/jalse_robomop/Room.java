@@ -69,8 +69,8 @@ public class Room {
         });
 
         String floor = "";
-        for(int y = 0; y < this.width; y++) {
-            for(int x = 0; x < this.height; x++) {
+        for(int y = 0; y < this.height; y++) {
+            for(int x = 0; x < this.width; x++) {
                 boolean tileHasRoboMop = false;
                 for(Point roboMopPosition : roundedRoboMopPositions) {
                     if(roboMopPosition.x == x && roboMopPosition.y == y) {
