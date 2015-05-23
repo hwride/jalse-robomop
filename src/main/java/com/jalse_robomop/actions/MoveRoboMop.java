@@ -15,7 +15,6 @@ public class MoveRoboMop implements Action<JALSE> {
     @Override
     public void perform(final ActionContext<JALSE> context) {
         context.getActor().streamEntitiesOfType(RoboMop.class).forEach(roboMop -> {
-            System.out.println("RoboMop moving.");
             Point2D.Double position = roboMop.getPosition();
             double angle = roboMop.getAngle();
 
@@ -24,6 +23,7 @@ public class MoveRoboMop implements Action<JALSE> {
                     position.x + (MOVE_SPEED * Math.cos(angle)),
                     position.y + (MOVE_SPEED * Math.sin(angle))
             );
+            System.out.println("RoboMop trying to move to x: " + newPosition.x + ", y: " + newPosition.y);
             if (newPosition.x <= 0 || newPosition.x >= room.getWidth() ||
                 newPosition.y <= 0 || newPosition.y >= room.getHeight()) {
                 System.out.println("Hit a wall, changing direction.");
