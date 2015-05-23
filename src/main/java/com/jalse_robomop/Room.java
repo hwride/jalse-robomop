@@ -11,7 +11,7 @@ public class Room {
     private int width;
     private int height;
     private boolean[][] cleanedFloorSquares;
-    JALSE jalse;
+    private JALSE jalse;
 
     public Room(int width, int height, JALSE jalse) {
         this.width = width;
@@ -31,33 +31,11 @@ public class Room {
     /**
      * Mark the given position in the room as clean.
      *
-     * @param position Position that is now clan.
+     * @param position Position that is now clean.
      */
     public void markPositionAsClean(Point2D.Double position) {
         Point roundedRoboMopPosition = getRoundedPosition(position);
         cleanedFloorSquares[roundedRoboMopPosition.x][roundedRoboMopPosition.y] = true;
-    }
-
-    /**
-     * Get a position rounded to the nearest floor tile.
-     *
-     * @param position A non rounded position.
-     * @return A rounded position.
-     */
-    public Point getRoundedPosition(Point2D.Double position) {
-        int x = (int)Math.round(position.x);
-        if(x < 0) {
-            x = 0;
-        } else if (x == this.width) {
-            x = this.width - 1;
-        }
-        int y = (int)Math.round(position.y);
-        if(y < 0) {
-            y = 0;
-        } else if (y == this.height) {
-            y = this.height - 1;
-        }
-        return new Point(x, y);
     }
 
     /**
@@ -115,5 +93,27 @@ public class Room {
             floor += "\n";
         }
         System.out.println(floor);
+    }
+
+    /**
+     * Get the nearest floor tile to the given position.
+     *
+     * @param position A non rounded position.
+     * @return A rounded position.
+     */
+    private Point getRoundedPosition(Point2D.Double position) {
+        int x = (int)Math.round(position.x);
+        if(x < 0) {
+            x = 0;
+        } else if (x == this.width) {
+            x = this.width - 1;
+        }
+        int y = (int)Math.round(position.y);
+        if(y < 0) {
+            y = 0;
+        } else if (y == this.height) {
+            y = this.height - 1;
+        }
+        return new Point(x, y);
     }
 }
