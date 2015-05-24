@@ -12,12 +12,14 @@ public class Room {
     private int height;
     private boolean[][] cleanedFloorSquares;
     private JALSE jalse;
+    private RoboMop roboMop;
 
-    public Room(int width, int height, JALSE jalse) {
+    public Room(int width, int height, JALSE jalse, RoboMop roboMop) {
         this.width = width;
         this.height = height;
         cleanedFloorSquares = new boolean[this.width][this.height];
         this.jalse = jalse;
+        this.roboMop = roboMop;
     }
 
     public int getWidth() {
@@ -63,24 +65,12 @@ public class Room {
      * Print the current state of the floor. X = dirty, ' ' = clean, R = RoboMop.
      */
     public void printFloor() {
-        java.util.List<Point> roundedRoboMopPositions = new ArrayList<>();
-        jalse.streamEntitiesOfType(RoboMop.class).forEach(roboMop -> {
-            roundedRoboMopPositions.add(getRoundedPosition(roboMop.getPosition()));
-        });
-
         String floor = "";
+        Point roboMopPosition = getRoundedPosition(roboMop.getPosition());
         for(int y = 0; y < this.height; y++) {
             for(int x = 0; x < this.width; x++) {
-                boolean tileHasRoboMop = false;
-                for(Point roboMopPosition : roundedRoboMopPositions) {
-                    if(roboMopPosition.x == x && roboMopPosition.y == y) {
-                        tileHasRoboMop = true;
-                        break;
-                    }
-                }
-
                 String tileContents;
-                if(tileHasRoboMop) {
+                if(roboMopPosition.x == x && roboMopPosition.y == y) {
                     tileContents = "R";
                 } else if(cleanedFloorSquares[x][y]) {
                     tileContents = " ";

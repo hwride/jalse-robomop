@@ -6,6 +6,8 @@ import com.jalse_robomop.listeners.RoboMopMoved;
 import jalse.JALSE;
 import jalse.JALSEBuilder;
 import jalse.attributes.Attributes;
+import jalse.entities.Entity;
+
 import java.awt.geom.Point2D;
 import java.util.concurrent.TimeUnit;
 
@@ -20,14 +22,17 @@ public class Main {
     public static void main(String[] args) {
         JALSE jalse = JALSEBuilder.buildSingleThreadedJALSE();
 
-        // Create room.
-        Room room = new Room(ROOM_WIDTH, ROOM_HEIGHT, jalse);
-        jalse.putInBindings("room", room);
-
         // Create RoboMop.
         RoboMop roboMop = jalse.newEntity(RoboMop.class);
         roboMop.setPosition(ROBO_MOP_START_POS);
         roboMop.setAngle(ROBO_MOP_START_ANGLE);
+
+        // Create room.
+        Room room = new Room(ROOM_WIDTH, ROOM_HEIGHT, jalse, roboMop);
+        jalse.putInBindings("room", room);
+
+        Entity entity = jalse.newEntity();
+        entity.setAttribute(Attributes.newNamedTypeOf("position", Point2D.Double.class), new Point2D.Double(1, 1));
 
         // Mark initial position of RoboMop as clean and print initial state.
         room.markPositionAsClean(roboMop.getPosition());
@@ -37,7 +42,7 @@ public class Main {
         // Listen for when RoboMop moves and update cleaned positions.
         roboMop.addAttributeListener(Attributes.newNamedTypeOf("position", Point2D.Double.class), new RoboMopMoved(room));
 
-        // Move RoboMops.
-        jalse.scheduleForActor(new MoveRoboMop(), 0, MS_BETWEEN_MOVES, TimeUnit.MILLISECONDS);
+        // Move RoboMop.
+        roboMop.scheduleForActor(new MoveRoboMop(), 0, MS_BETWEEN_MOVES, TimeUnit.MILLISECONDS);
     }
 }
