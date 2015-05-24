@@ -102,17 +102,13 @@ public class Room {
      * @return A rounded position.
      */
     private Point getRoundedPosition(Point2D.Double position) {
-        int x = (int)Math.round(position.x);
+        int x = (int)Math.floor(position.x);
         if(x < 0) {
             x = 0;
-        } else if (x == this.width) {
-            x = this.width - 1;
         }
-        int y = (int)Math.round(position.y);
+        int y = (int)Math.floor(position.y);
         if(y < 0) {
             y = 0;
-        } else if (y == this.height) {
-            y = this.height - 1;
         }
         return new Point(x, y);
     }
